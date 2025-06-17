@@ -1,49 +1,47 @@
 import React, { useState } from 'react'
+import Accordo from './Accordo'
 import './App.css'
 
 function App() {
 
-  const [data,setData] = useState("");
+  // If you need only Single Accordion is Open, and others should be closed
 
-  const calci = [ '9','8','7','+','6,','5','4','-','3','2','1','*','0','/'];
+  const [openIndex, setOpenIndex] = useState(0); // Initially the first one is open
 
-  const Calculate = ()=>{
-    if(data!="")
+  // If you set useState(null) --> all will be closed By Default
+  // If you Set any Number, That Particular Accordion is Opened
+
+  const data = [
     {
-      try 
-      {
-        let res = eval(data);
-        setData(res);
-      }
-      catch
-      {
-        setData("Error")
-      }
+      heading : "Heading 001 ",
+      answer : "This is the reveaing answer you needed in the screen when you clicked on the question tag"
+    },
+    {
+      heading : "Heading 002 ",
+      answer : "This is the reveaing answer you needed in the screen when you clicked on the question tag"
+    },
+    {
+      heading : "Heading 003 ",
+      answer : "This is the reveaing answer you needed in the screen when you clicked on the question tag"
     }
-  }
+  ]
+
+
   return (
     <>
-    
-    <center>
 
-      <h1 className='heading'> Calculator </h1>
+      <h1> Accordion Example  </h1>
 
-      <input type="text" placeholder='Ente the Input'  value={data} />
+      {/* If you need multiple Accordions Need to be Open, Don't pass the OpenIndex and SetOpenIndex and Manage only the state variable in that 
+      COmponent itself */}
 
-      <div className="calciGrid">
-        {
-        calci.map( (ele,index)=>(
-          <button key={index} onClick={()=>setData(data+ele)}> {ele} </button>
+      {
+        data.map( (ele,index)=>(
+          <Accordo value={ele} ind={index} openIndex={openIndex}
+            setOpenIndex={setOpenIndex}/>
         ))
       }
-      </div>
 
-     <div className="mainBtn">
-       <button onClick={Calculate}> Calculate </button>
-      <button onClick={()=>setData("")}> Reset  </button>
-     </div>
-    </center>
-    
     </>
   )
 }
